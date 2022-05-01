@@ -3,7 +3,7 @@ import LoginForm from "../components/Forms/Login";
 const Login = () => {
   const submit = (data) => {
     console.log(data);
-    fetch("http://localhost:3000/api/login", {
+    fetch("http://localhost:4000/login", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -13,9 +13,9 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6 mx-auto">
+    <div className="section">
+      <div className="">
+        <div className="col-md-5 mx-auto">
           <div className="shadow p-5">
             <LoginForm submit={submit} />
           </div>

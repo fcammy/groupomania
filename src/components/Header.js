@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import logo from "../logo.svg";
 
 const Header = () => (
-  <div className="container">
-    <nav className="main-nav navbar navbar-expand-md navbar-dark mb-4">
+  <div className="">
+    <nav className="main-nav navbar navbar-expand-md mb-4">
       <div className="container-fluid">
-        <a className="navbar-brand">
+        <Link className="navbar-brand" to="/">
           <img src={logo} alt="logo" height={50} />
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -21,13 +21,13 @@ const Header = () => (
         </button>
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <ul className="navbar-nav ms-auto mb-2 mb-md-0">
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
+            <li className="nav-item navButton">
+              <Link className="nav-link text-black" to="/login">
                 Login
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/register">
+            <li className="nav-item navButton">
+              <Link className="nav-link text-black" to="/register">
                 Register
               </Link>
             </li>

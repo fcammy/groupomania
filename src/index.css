@@ -9,12 +9,12 @@
 body {
 
   font-family: 'Merriweather', serif;
-  font-size: 16px;
+
 }
 
 
 .main-nav {
-  background-color: #0032B9;
+  background-color: #fff;
 
 }
 
@@ -28,6 +28,51 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
 
 
+
+.navButton {
+  margin-left: 5px;
+  border: none;
+  padding: 5px 5px;
+  cursor: pointer;
+  color: #003580;
+
+}
+
+.footer {
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #003580;
+}
+
+.header-data {
+
+  width: 100%;
+  background-color: #AFD3FF;
+}
+
+.logo {
+  float: left;
+  width: 40px;
+  margin-right: 14px;
+  margin-top: 10px;
+}
+
+.logo img {
+  width: 280px;
+}
+
+
+
+.user-account {
+  float: right;
+  width: 110px;
+  box-sizing: border-box;
+  padding: 25px 10px;
+  position: relative;
 }

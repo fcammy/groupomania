@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({ submit }) => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -11,6 +12,7 @@ const LoginForm = ({ submit }) => {
 
     if (Object.keys(errors).length === 0) {
       submit(data);
+      window.location.replace("/home");
     } else {
       setInputErrors(errors);
     }
@@ -31,8 +33,8 @@ const LoginForm = ({ submit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="display-4 text-center mb-5">Login</h2>
-      <div className="mb-3">
+      <h2 className="display-5 text-center mb-5">Login</h2>
+      <div className=" form-outline mb-4">
         <label htmlFor="email" className="form-label">
           Email address
         </label>
@@ -43,11 +45,11 @@ const LoginForm = ({ submit }) => {
           name="email"
           value={data.email}
           onChange={handleChange}
-          placeholder="name@example.com"
+          placeholder="Please enter your email"
         />
         <div className="invalid-feedback">{inputErrors.email}</div>
       </div>
-      <div className="mb-3">
+      <div className=" form-outline mb-4">
         <label htmlFor="password" className="form-label">
           Password
         </label>
@@ -58,13 +60,18 @@ const LoginForm = ({ submit }) => {
           name="password"
           value={data.password}
           onChange={handleChange}
-          placeholder="1234456m"
+          placeholder="Enter password"
         />
         <div className="invalid-feedback">{inputErrors.password}</div>
       </div>
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary btn-block mb-4">
         Login
       </button>
+      <div className="text-center">
+        <p>
+          Not a member? <Link to="/register">Register</Link>
+        </p>
+      </div>
     </form>
   );
 };
