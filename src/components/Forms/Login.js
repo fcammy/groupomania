@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { Children, useState } from "react";
 import { Link } from "react-router-dom";
 
-const LoginForm = ({ submit }) => {
+const LoginForm = ({ submit, children }) => {
   const [data, setData] = useState({ email: "", password: "" });
   const [inputErrors, setInputErrors] = useState({});
 
@@ -12,7 +12,6 @@ const LoginForm = ({ submit }) => {
 
     if (Object.keys(errors).length === 0) {
       submit(data);
-      window.location.replace("/home");
     } else {
       setInputErrors(errors);
     }
@@ -72,6 +71,7 @@ const LoginForm = ({ submit }) => {
           Not a member? <Link to="/register">Register</Link>
         </p>
       </div>
+      {children}
     </form>
   );
 };
