@@ -1,13 +1,14 @@
-import { API_URL } from "../config";
-import LoginForm from "../components/Forms/Login";
+import { API_URL } from "../../config";
+import LoginForm from "../../components/Forms/Login";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import AuthContext from "../context/AuthProvider";
+import AuthContext from "../../context/AuthProvider";
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { setProfile } = useContext(AuthContext);
+
+  let navigate = useNavigate();
   const [message, setMessage] = useState({});
   const submit = async (data) => {
     try {
@@ -20,39 +21,40 @@ const Login = () => {
         }
       );
 
-      console.log(JSON.stringify(data));
+      //console.log(JSON.stringify(data));
+      console.log(res);
 
       const token = res.data.token;
 
-      setAuth({ data, token });
+      localStorage.setItem("token", token);
+
+      setProfile({ data, token });
 
       // set message & checking if response is ok
 
       setMessage({ type: "success", message: res.message });
 
-      if (res.status === 200) {
+      if (token) {
         setMessage({ type: "success", message: "You are logged in" });
+        setTimeout(() => navigate("/"), 1000);
       }
-      setTimeout(() => navigate("/home"), 1000);
     } catch (ex) {
       setMessage({ type: "danger", message: ex.message });
-      if (!ex.res) {
+      if (ex.res) {
         setMessage({ type: "danger", message: "No server response" });
-      } else if (ex.res.status === 400) {
+      } else if (ex.res === 400) {
         setMessage({ type: "danger", message: "Missing username or password" });
-      } else if (ex.res.status === 401) {
+      } else if (ex.res === 401) {
         setMessage({ type: "danger", message: "Unauthorised" });
-      } else {
-        setMessage({ type: "danger", message: "Unknown error" });
       }
     }
   };
 
   return (
-    <div className="section">
+    <div className="section w-100">
       <div className="">
         <div className="col-md-5 mx-auto">
-          <div className="shadow p-5">
+          <div className="p-5">
             <LoginForm submit={submit}>
               {Object.keys(message).length > 0 && (
                 <div className={`text-center mt-4 alert alert-${message.type}`}>
