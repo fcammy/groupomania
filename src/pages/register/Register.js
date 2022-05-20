@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "../../config";
 import RegisterForm from "../../components/Forms/Register";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) navigate("/");
+  }, [navigate]);
+
   const [message, setMessage] = useState({});
   const submit = async (data) => {
     try {

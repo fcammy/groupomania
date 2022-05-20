@@ -1,14 +1,18 @@
 import { API_URL } from "../../config";
 import LoginForm from "../../components/Forms/Login";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../../context/AuthProvider";
 
 const Login = () => {
   const { setProfile } = useContext(AuthContext);
-
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) navigate("/");
+  }, [navigate]);
+
   const [message, setMessage] = useState({});
   const submit = async (data) => {
     try {
@@ -22,13 +26,20 @@ const Login = () => {
       );
 
       //console.log(JSON.stringify(data));
-      console.log(res);
+      //console.log(res);
 
       const token = res.data.token;
 
       localStorage.setItem("token", token);
 
-      setProfile({ data, token });
+      let profile = await fetch("http://localhost:4000/api/v1/users/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      profile = await profile.json();
+
+      setProfile({ ...profile, token });
 
       // set message & checking if response is ok
 
@@ -39,13 +50,11 @@ const Login = () => {
         setTimeout(() => navigate("/"), 1000);
       }
     } catch (ex) {
-      setMessage({ type: "danger", message: ex.message });
-      if (ex.res) {
-        setMessage({ type: "danger", message: "No server response" });
-      } else if (ex.res === 400) {
-        setMessage({ type: "danger", message: "Missing username or password" });
-      } else if (ex.res === 401) {
-        setMessage({ type: "danger", message: "Unauthorised" });
+      console.log({ ex });
+      if (ex.response.data.message) {
+        setMessage({ type: "danger", message: ex.response.data.message });
+      } else {
+        setMessage({ type: "danger", message: ex.message });
       }
     }
   };
@@ -53,7 +62,7 @@ const Login = () => {
   return (
     <div className="section w-100">
       <div className="">
-        <div className="col-md-5 mx-auto">
+        <div className="col-lg-5 mx-auto">
           <div className="p-5">
             <LoginForm submit={submit}>
               {Object.keys(message).length > 0 && (

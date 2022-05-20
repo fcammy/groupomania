@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../logo.svg";
 
 const LoginForm = ({ submit, children }) => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -41,7 +40,6 @@ const LoginForm = ({ submit, children }) => {
                 <div className="col">
                   <div className="card-body p-md-5 mx-md-4">
                     <div className="text-center">
-                      <img src={logo} alt="logo" />
                       <h4 className="mt-1 mb-5 pt-3">Welcome to Groupomania</h4>
                     </div>
 

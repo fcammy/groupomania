@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { API_URL } from "../../config";
 
 const RegisterForm = ({ submit, children }) => {
-  const [data, setData] = useState({ name: "", email: "", password: "" });
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    image: "",
+  });
   const [inputErrors, setInputErrors] = useState({});
 
   const handleSubmit = (e) => {
@@ -31,6 +37,24 @@ const RegisterForm = ({ submit, children }) => {
     return errors;
   };
 
+  const handleUpload = async (e) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", e.target.files[0]);
+
+      let url = await fetch(`${API_URL}/upload`, {
+        method: "POST",
+        body: formData,
+      });
+
+      url = await url.json();
+
+      setData({ ...data, image: url.filename });
+    } catch (ex) {
+      console.log({ ex });
+    }
+  };
+
   return (
     <section className="vh-100 bg-image">
       <div className="mask d-flex align-items-center">
@@ -43,7 +67,11 @@ const RegisterForm = ({ submit, children }) => {
                     Create an account
                   </h2>
 
-                  <form onSubmit={handleSubmit}>
+                  <form
+                    onSubmit={handleSubmit}
+                    method="post"
+                    encType="multipart/form-data"
+                  >
                     <div className="form-outline mb-4 form-floating">
                       <input
                         type="text"
@@ -96,6 +124,15 @@ const RegisterForm = ({ submit, children }) => {
                       <label className="form-label" htmlFor="password">
                         Password
                       </label>
+                      <div class="mb-3">
+                        <label for="formFile" class="form-label"></label>
+                        <input
+                          className="form-control"
+                          type="file"
+                          name="image"
+                          onChange={handleUpload}
+                        />
+                      </div>
                     </div>
 
                     <div className="d-flex justify-content-center">
