@@ -106,7 +106,7 @@ textarea:focus {
   margin: 20px;
 }
 
-input[type="file"] {
+.panel input[type="file"] {
   display: none !important;
 }
 
@@ -177,9 +177,6 @@ input[type="file"] {
 .post__options {
   padding-top: 10px;
   border-top: 1px solid lightgray;
-  display: flex;
-  justify-content: space-evenly;
-  font-size: medium;
   color: gray;
   cursor: pointer;
   padding: 15px;
@@ -187,10 +184,8 @@ input[type="file"] {
 
 .post__option {
   display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 5px;
-  flex: 1;
+
 }
 
 .post__option>p {
@@ -221,7 +216,8 @@ input[type="file"] {
 
 .sidebarRow>h5 {
   margin-left: 20px;
-  font-weight: 400;
+  font-weight: 300;
+  font-size: 1rem;
 }
 
 .sidebarRow>span {
@@ -246,10 +242,75 @@ input[type="file"] {
 .member {
   padding: 25px 10px;
   flex: 0.33;
+  width: 300px;
+  max-height: 500px;
+  margin-top: 50px;
+  margin-right: 20px;
+  background-color: #4f5261;
+}
+
+.member-text {
+  font-size: 13px;
 }
 
 .close-size {
   font-size: 10px
+}
+
+/* Comments */
+
+.comments {
+  display: block;
+  margin: auto;
+  min-height: 100px;
+  width: 100%;
+}
+
+.comments form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.comments form input {
+  min-height: 30px;
+  width: 90%;
+  padding-left: 10px;
+  border-radius: 15px;
+  border: none;
+  background-color: #eeeeee;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.comments__text {
+  padding-left: 20px;
+  font-size: 13px;
+  border-radius: 20px;
+  width: 70%;
+  background-color: #eee;
+  margin-left: 20px;
+
+}
+
+.comments form input:focus {
+  outline: none;
+}
+
+.comment__font {
+  font-size: 11px;
+
+}
+
+.send {
+  color: gray;
+  padding: 0px;
+  border: solid 0px gray;
+  border-radius: 50%;
+  margin-left: -24px;
+  margin-top: -25px;
 }
 
 /* Media queries */

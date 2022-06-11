@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "../../config";
-import { useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
 import { FILE_URL } from "../../config";
 
 const Member = () => {
   const [users, setUsers] = useState([]);
-  const { profile } = useContext(AuthContext);
 
   const getAllUsers = async () => {
     const token = localStorage.getItem("token");
@@ -25,16 +22,16 @@ const Member = () => {
     getAllUsers();
   }, []);
   return (
-    <div className="member">
-      <p className="text-center fs-4">Contacts</p>
+    <div className="member text-light">
+      <h5 className="text-left fw-bold mb-4">Contacts</h5>
       {users.map((user) => (
-        <li className="sidebarFriend" key={user.id}>
+        <li className="sidebarFriend" key={user.id} user={user}>
           <img
             className="sidebarFriendImg"
-            src={FILE_URL + profile.image}
+            src={FILE_URL + user.image}
             alt="user"
           />
-          <span className="sidebarFriendName">{user.profile.name}</span>
+          <span className="text-light fw-light member-text">{user.name}</span>
         </li>
       ))}
     </div>

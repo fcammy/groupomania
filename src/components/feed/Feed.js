@@ -20,16 +20,17 @@ const Feed = () => {
     fetchPost();
   }, []);
 
+  const handleDelete = (postId) => {
+    const newPosts = posts.filter((post) => post.id !== postId);
+
+    setPosts(newPosts);
+  };
+
   return (
     <div className="feed">
-      <CreatePost />
+      <CreatePost posts={posts} setPosts={setPosts} />
       {posts.map((post) => (
-        <Post
-          key={post.id}
-          text={post.text}
-          createdAt={post.createdAt}
-          image={post.image}
-        />
+        <Post key={post.id} post={post} deletePost={handleDelete} />
       ))}
     </div>
   );

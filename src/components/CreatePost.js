@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { API_URL } from "../config";
 import AuthContext from "../context/AuthProvider";
 
-const CreatePost = () => {
+const CreatePost = ({ posts, setPosts }) => {
   const [input, setInput] = useState("");
   const [image, setImage] = useState("");
 
@@ -22,7 +22,7 @@ const CreatePost = () => {
       });
       image = await image.json();
       setImage(image.filename);
-      console.log(image);
+      //console.log(image);
     } catch (error) {
       console.log({ error });
     }
@@ -35,19 +35,24 @@ const CreatePost = () => {
       if (!input.length > 5) return window.alert("Insert more text");
 
       const token = localStorage.getItem("token");
-
-      const post = await fetch(API_URL + "/posts", {
-        method: "POST",
-        body: JSON.stringify({ text: input, image: image }),
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await post.json();
-      console.log({ data });
-      setInput("");
+      if (token) {
+        const post = await fetch(`${API_URL}/posts`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: input,
+            image: image,
+            userId: profile.id,
+          }),
+        });
+        const data = await post.json();
+        setPosts([data, ...posts]);
+        console.log(data);
+        setInput("");
+      }
     } catch (error) {
       console.log(error.message);
     }
