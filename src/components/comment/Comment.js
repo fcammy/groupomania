@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { API_URL } from "../../config";
 
-const Comment = ({ postId }) => {
-  const [comments, setComments] = useState("");
+const Comment = ({ postId, comments, setComments }) => {
+  const [input, setInput] = useState("");
 
   // handle event change
   const handleCommentChange = (e) => {
-    setComments(e.target.value);
+    setInput(e.target.value);
   };
 
   const handleCommentSubmit = async (e) => {
@@ -15,20 +15,20 @@ const Comment = ({ postId }) => {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        const comment = fetch(`${API_URL}/posts/${postId}/comments`, {
+        let comment = await fetch(`${API_URL}/posts/${postId}/comments`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            text: comments,
+            text: input,
             postId: postId,
           }),
         });
-        comment.then((res) => res.json());
-        const data = await comment.json();
-        setComments(data);
+        comment = await comment.json();
+        setComments([...comments, comment]);
+        setInput("");
       }
     } catch (error) {}
   };
@@ -40,7 +40,7 @@ const Comment = ({ postId }) => {
           type="text"
           name="comment"
           onChange={handleCommentChange}
-          value={comments}
+          value={input}
           placeholder="Write a comment"
           className="outline-none "
         />

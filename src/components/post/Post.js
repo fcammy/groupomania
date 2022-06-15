@@ -12,6 +12,8 @@ const Post = ({ post, deletePost }) => {
     !!localStorage.getItem(`post-${post.id}`)
   );
 
+  const [comments, setComments] = useState(post.comments);
+
   const handleDelete = async (postId) => {
     try {
       const post = await fetch(`${API_URL}/posts/${postId}`, {
@@ -60,6 +62,7 @@ const Post = ({ post, deletePost }) => {
           onClick={() => handleDelete(post.id)}
         />
       )}
+      <button className="btn btn-info">Mark as read</button>
       <div className="post__top">
         <img
           src={FILE_URL + post.user?.image}
@@ -94,7 +97,7 @@ const Post = ({ post, deletePost }) => {
       <div className="post__options">
         <div className="d-flex justify-content-between border-bottom">
           <i className="bi bi-hand-thumbs-up-fill">{likes}</i>
-          <p>{post.comments.length} comments</p>
+          <p>{comments.length} comments</p>
         </div>
         <div className="d-flex justify-content-around border-bottom">
           <span className="post__option" onClick={() => handleLike(post.id)}>
@@ -108,8 +111,8 @@ const Post = ({ post, deletePost }) => {
           </div>
         </div>
       </div>
-      <Comment postId={post.id} />
-      <Comments comments={post.comments} />
+      <Comment postId={post.id} comments={comments} setComments={setComments} />
+      <Comments comments={comments} />
     </div>
   );
 };

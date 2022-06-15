@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import CreatePost from "../CreatePost";
 import Post from "../post/Post";
+import { API_URL } from "../../config";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -8,7 +9,7 @@ const Feed = () => {
   const token = localStorage.getItem("token");
 
   const fetchPost = async () => {
-    const response = await fetch("http://localhost:4000/api/v1/posts", {
+    const response = await fetch(`${API_URL}/posts`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

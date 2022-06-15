@@ -313,6 +313,74 @@ textarea:focus {
   margin-top: -25px;
 }
 
+/* Profile */
+
+.wrapper {
+  max-width: 500px;
+  margin: 50px auto 20px;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  background: #4f5261;
+  box-shadow: 0 0 10px rgba(55, 55, 55, .5);
+  color: #E4DFDA;
+  border-radius: 4px;
+}
+
+.header {
+  font-size: 30px;
+  padding: 5px;
+
+}
+
+.profile-pic img {
+  width: 80px;
+  height: 80px;
+  margin: 10px auto;
+  margin-top: -30px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-size: cover;
+
+}
+
+.name {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.email {
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.about-me {
+  letter-spacing: .6px;
+  font-weight: 300;
+  margin: 20px 0px;
+}
+
+.stats {
+  background: #fff;
+  color: #2e81f4;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 20px 20px;
+  border-radius: 3px;
+}
+
+.num {
+  font-weight: 500;
+  font-size: 20px;
+}
+
 /* Media queries */
 
 @media (max-width: 576px) {
