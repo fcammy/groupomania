@@ -97,7 +97,7 @@ const Post = ({ post, deletePost }) => {
       <div className="post__options">
         <div className="d-flex justify-content-between border-bottom">
           <i className="bi bi-hand-thumbs-up-fill">{likes}</i>
-          <p>{comments.length} comments</p>
+          <p>{comments?.length} comments</p>
         </div>
         <div className="d-flex justify-content-around border-bottom">
           <span className="post__option" onClick={() => handleLike(post.id)}>

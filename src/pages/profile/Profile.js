@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { FILE_URL, API_URL } from "../../config";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  let navigate = useNavigate();
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
@@ -32,6 +34,8 @@ const Profile = () => {
         },
       });
     }
+    localStorage.removeItem("token");
+    navigate("/register");
   };
   return (
     <div>
@@ -47,19 +51,20 @@ const Profile = () => {
 
         <div className="stats">
           <div className="item followers">
-            <span className="num">{profile.count.comments}</span>
+            <span className="num">{profile.count?.comments}</span>
             <div className="text">Comments</div>
           </div>
-          <div className="item stars">
-            <span className="num">622</span>
-            <div className="text">Likes</div>
-          </div>
+
           <div className="item following">
-            <span className="num">{profile.count.posts}</span>
+            <span className="num">{profile.count?.posts}</span>
             <div className="text">Posts</div>
           </div>
         </div>
-        <button type="button" className="btn btn-outline-danger text-white">
+        <button
+          type="button"
+          className="btn btn-outline-danger text-white"
+          onClick={deleteUser}
+        >
           Delete Account
         </button>
       </div>
