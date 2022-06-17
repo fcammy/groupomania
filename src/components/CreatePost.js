@@ -1,12 +1,20 @@
 import { useContext, useState } from "react";
 import { API_URL } from "../config";
 import AuthContext from "../context/AuthProvider";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreatePost = ({ posts, setPosts }) => {
   const [input, setInput] = useState("");
   const [image, setImage] = useState("");
 
   const { profile } = useContext(AuthContext);
+
+  const postAlert = () => {
+    toast.success("Post added successfully !", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -59,43 +67,47 @@ const CreatePost = ({ posts, setPosts }) => {
   };
 
   return (
-    <div className="panel">
-      <form
-        onSubmit={handleSubmit}
-        className="d-flex mt-4 flex-column align-items-center card-body"
-      >
-        <textarea
-          className="form-control row-cols-sm-2 bg-light p-text-area"
-          name="input"
-          value={input}
-          onChange={handleChange}
-          type="text"
-          placeholder={`What's on your mind, ${profile.name}?`}
-        />
-        <div className="input-group d-flex justify-content-between mt-2 align-items-center">
-          <label>
-            <span>
-              <i className="bi bi-camera-fill icon-size">
-                <input
-                  type="file"
-                  className="form-control"
-                  name="image"
-                  onChange={handleImage}
-                />
-              </i>
-            </span>
-          </label>
+    <>
+      <ToastContainer />
+      <div className="panel">
+        <form
+          onSubmit={handleSubmit}
+          className="d-flex mt-4 flex-column align-items-center card-body"
+        >
+          <textarea
+            className="form-control row-cols-sm-2 bg-light p-text-area"
+            name="input"
+            value={input}
+            onChange={handleChange}
+            type="text"
+            placeholder={`What's on your mind, ${profile.name}?`}
+          />
+          <div className="input-group d-flex justify-content-between mt-2 align-items-center">
+            <label>
+              <span>
+                <i className="bi bi-camera-fill icon-size">
+                  <input
+                    type="file"
+                    className="form-control"
+                    name="image"
+                    onChange={handleImage}
+                  />
+                </i>
+              </span>
+            </label>
 
-          <button
-            className=" btn btn-post btn-primary"
-            disabled={!input}
-            type="submit"
-          >
-            Post
-          </button>
-        </div>
-      </form>
-    </div>
+            <button
+              className=" btn btn-post btn-primary"
+              disabled={!input}
+              type="submit"
+              onClick={postAlert}
+            >
+              Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

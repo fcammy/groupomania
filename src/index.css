@@ -381,6 +381,11 @@ textarea:focus {
   font-size: 20px;
 }
 
+.liked {
+  color: #2e81f4;
+
+}
+
 /* Media queries */
 
 @media (max-width: 576px) {
