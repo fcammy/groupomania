@@ -62,6 +62,22 @@ const Post = ({ post, deletePost }) => {
     }
   };
 
+  const markAsRead = async (postId) => {
+    try {
+      const post = await fetch(`${API_URL}/posts/${postId}/read`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await post.json();
+
+      console.log(data);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
   return (
     <>
       <ToastContainer />
@@ -77,7 +93,11 @@ const Post = ({ post, deletePost }) => {
             }}
           />
         )}
-        <button className="btn btn-info">Mark as read</button>
+        {post.userId !== profile.userId && (
+          <button onClick={() => markAsRead(post.id)} className="btn btn-info">
+            Mark as read
+          </button>
+        )}
         <div className="post__top">
           <img
             src={FILE_URL + post.user?.image}

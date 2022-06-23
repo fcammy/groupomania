@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../config";
 import { FILE_URL } from "../../config";
 
+// Member component
 const Member = () => {
+  // declare state variables
+
   const [users, setUsers] = useState([]);
+
+  // get users from api
 
   const getAllUsers = async () => {
     const token = localStorage.getItem("token");
@@ -17,6 +22,7 @@ const Member = () => {
       setUsers(data);
     }
   };
+  // calling getAllUsers function
 
   useEffect(() => {
     getAllUsers();
@@ -26,11 +32,15 @@ const Member = () => {
       <h5 className="text-left fw-bold mb-4">Contacts</h5>
       {users.map((user) => (
         <li className="sidebarFriend" key={user.id} user={user}>
-          <img
-            className="sidebarFriendImg"
-            src={FILE_URL + user.image}
-            alt="user"
-          />
+          {!user.image ? (
+            <i className="bi bi-person-circle size"></i>
+          ) : (
+            <img
+              className="sidebarFriendImg"
+              src={FILE_URL + user.image}
+              alt="user"
+            />
+          )}
           <span className="text-light fw-light member-text">{user.name}</span>
         </li>
       ))}

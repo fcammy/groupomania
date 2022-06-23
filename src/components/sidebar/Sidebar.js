@@ -17,15 +17,19 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="d-flex mb-3">
-        <img
-          src={FILE_URL + profile.image}
-          alt="profile"
-          style={{
-            width: "30px",
-            height: "30px",
-            borderRadius: "50%",
-          }}
-        />
+        {!profile.image ? (
+          <i className="bi bi-person-circle size"></i>
+        ) : (
+          <img
+            src={FILE_URL + profile.image}
+            alt="profile"
+            style={{
+              width: "30px",
+              height: "30px",
+              borderRadius: "50%",
+            }}
+          />
+        )}
         <div className="mx-3">
           <h6>{profile.name}</h6>
         </div>

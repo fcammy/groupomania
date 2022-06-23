@@ -386,6 +386,10 @@ textarea:focus {
 
 }
 
+.size {
+  font-size: 30px;
+}
+
 /* Media queries */
 
 @media (max-width: 576px) {

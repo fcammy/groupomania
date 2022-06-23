@@ -2,14 +2,20 @@ import { useState, useEffect } from "react";
 import { FILE_URL, API_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
 
+// profile component
+
 const Profile = () => {
   let navigate = useNavigate();
+
+  // declare state variables
+
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
     getUser();
   }, []);
 
+  // get user from api
   const getUser = async () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -23,6 +29,8 @@ const Profile = () => {
       setProfile(data);
     }
   };
+
+  // deleting user from api
 
   const deleteUser = async (userId) => {
     const token = localStorage.getItem("token");
@@ -41,7 +49,11 @@ const Profile = () => {
     <div>
       <div className="wrapper">
         <div className="profile-pic">
-          <img src={FILE_URL + profile.image} alt="profile" />
+          {!profile.image ? (
+            <i className="bi bi-person-circle size"></i>
+          ) : (
+            <img src={FILE_URL + profile.image} alt="profile" />
+          )}
         </div>
 
         <div className="name">{profile.name}</div>
