@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import { AuthProvider } from "./context/AuthProvider";
+import { NotificationProvider } from "./context/NotificationProvider";
 import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en.json";
@@ -22,9 +23,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <AuthProvider>
-    {/* <NotifyProvider> */}
-    <Root />
-    {/* </NotifyProvider> */}
+    <NotificationProvider>
+      <Root />
+    </NotificationProvider>
   </AuthProvider>
   // </React.StrictMode>
 );

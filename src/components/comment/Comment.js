@@ -9,6 +9,8 @@ const Comment = ({ postId, comments, setComments }) => {
     setInput(e.target.value);
   };
 
+  // handle event submit
+
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 

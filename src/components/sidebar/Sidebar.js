@@ -12,7 +12,10 @@ import {
   MdEvent,
 } from "react-icons/md";
 
+// SIDEBAR COMPONENT
+
 const Sidebar = () => {
+  // get auth context
   const { profile } = useContext(AuthContext);
   return (
     <div className="sidebar">

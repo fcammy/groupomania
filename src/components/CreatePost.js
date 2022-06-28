@@ -4,11 +4,16 @@ import AuthContext from "../context/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// POST COMPONENT
 const CreatePost = ({ posts, setPosts }) => {
+  // set state for post
   const [input, setInput] = useState("");
   const [image, setImage] = useState("");
 
+  // get auth context
   const { profile } = useContext(AuthContext);
+
+  // setting toast alert
 
   const postAlert = () => {
     toast.success("Post added successfully !", {
@@ -16,10 +21,12 @@ const CreatePost = ({ posts, setPosts }) => {
     });
   };
 
+  // handle event change
   const handleChange = (e) => {
     setInput(e.target.value);
   };
 
+  // handle image upload
   const handleImage = async (e) => {
     try {
       const formData = new FormData();
@@ -36,6 +43,7 @@ const CreatePost = ({ posts, setPosts }) => {
     }
   };
 
+  // handle submit event
   const handleSubmit = async (e) => {
     e.preventDefault();
 

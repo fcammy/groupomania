@@ -2,8 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const LoginForm = ({ submit, children }) => {
+  // set state for form
+
   const [data, setData] = useState({ email: "", password: "" });
+
+  // set state for errors
   const [inputErrors, setInputErrors] = useState({});
+
+  // handle submit
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,10 +23,13 @@ const LoginForm = ({ submit, children }) => {
     }
   };
 
+  // handle event change
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  // validate form
   const validate = () => {
     const errors = {};
 

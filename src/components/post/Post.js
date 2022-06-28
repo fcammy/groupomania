@@ -7,14 +7,21 @@ import Comments from "../comment/Comments";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// POST COMPONENT
+
 const Post = ({ post, deletePost }) => {
+  // get auth context
   const { profile } = useContext(AuthContext);
+  // set state for LIKES
+
   const [likes, setLikes] = useState(post.likes);
   const [hasLiked, setHasLiked] = useState(
     !!localStorage.getItem(`post-${post.id}`)
   );
 
   const [comments, setComments] = useState(post.comments);
+
+  // handle delete post
 
   const handleDelete = async (postId) => {
     try {
@@ -33,11 +40,16 @@ const Post = ({ post, deletePost }) => {
       console.log({ error });
     }
   };
+  // handle toast alert
+
   const deleteAlert = () => {
     toast.info("Post deleted", {
       position: toast.POSITION.TOP_CENTER,
     });
   };
+
+  // handle like post
+
   const handleLike = async (postId) => {
     try {
       const post = await fetch(`${API_URL}/posts/${postId}/likes`, {
@@ -50,10 +62,7 @@ const Post = ({ post, deletePost }) => {
       });
       const data = await post.json();
       setLikes(hasLiked ? likes - 1 : likes + 1);
-      if (hasLiked) {
-        let like = document.getElementById("like");
-        like.classList.add("liked");
-      }
+
       setHasLiked(!hasLiked);
       localStorage.setItem(`post-${postId}`, !hasLiked);
       console.log(data);
@@ -61,6 +70,8 @@ const Post = ({ post, deletePost }) => {
       console.log({ error });
     }
   };
+
+  // mark post as read
 
   const markAsRead = async (postId) => {
     try {

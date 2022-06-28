@@ -1,8 +1,8 @@
-import AuthContext from "../../context/AuthProvider";
-import { useContext } from "react";
+//import AuthContext from "../../context/AuthProvider";
+//import { useContext } from "react";
 
 const Comments = ({ comments }) => {
-  const { profile } = useContext(AuthContext);
+  //const { profile } = useContext(AuthContext);
   return (
     <div>
       {comments?.map((comment) => (

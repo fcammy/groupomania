@@ -3,6 +3,7 @@ import { useState } from "react";
 import { API_URL } from "../../config";
 
 const RegisterForm = ({ submit, children }) => {
+  // set state for form
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -10,6 +11,8 @@ const RegisterForm = ({ submit, children }) => {
     image: "",
   });
   const [inputErrors, setInputErrors] = useState({});
+
+  // handle submit
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,9 +26,13 @@ const RegisterForm = ({ submit, children }) => {
     }
   };
 
+  // handle event change
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  // validate form
 
   const validate = () => {
     const errors = {};

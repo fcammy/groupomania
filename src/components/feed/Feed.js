@@ -4,9 +4,14 @@ import Post from "../post/Post";
 import { API_URL } from "../../config";
 
 const Feed = () => {
+  // set state for posts
   const [posts, setPosts] = useState([]);
 
+  // getting token from local storage
+
   const token = localStorage.getItem("token");
+
+  // fetching posts from api
 
   const fetchPost = async () => {
     const response = await fetch(`${API_URL}/posts`, {
@@ -19,7 +24,9 @@ const Feed = () => {
   };
   useEffect(() => {
     fetchPost();
-  }, []);
+  });
+
+  // handle delete post
 
   const handleDelete = (postId) => {
     const newPosts = posts.filter((post) => post.id !== postId);

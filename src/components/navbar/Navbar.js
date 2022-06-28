@@ -6,19 +6,27 @@ import { FILE_URL } from "../../config";
 import AuthContext from "../../context/AuthProvider";
 import { API_URL } from "../../config";
 
+// Navbar component
+
 const Navbar = () => {
+  // declare state variables
+
   let navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
 
+  // Logout function
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
   const { profile } = useContext(AuthContext);
 
   useEffect(() => {
     fetchNotifications();
   }, []);
+
+  // get notifications from api
 
   const fetchNotifications = async () => {
     let data = await fetch(`${API_URL}/notifications`, {
@@ -31,6 +39,7 @@ const Navbar = () => {
     setNotifications(data);
   };
 
+  // filter notifications to get unread notifications
   const unreadNotifications = notifications.filter((n) => !n.read);
 
   return (
@@ -42,7 +51,7 @@ const Navbar = () => {
           </div>
           <div className="navbar__right">
             <div className="navbar__info">
-              {!profile.image ? (
+              {!profile.image ? ( // if user has no image
                 <i className="bi bi-person-circle size"></i>
               ) : (
                 <img

@@ -1,6 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 
+// create context
+
 const AuthContext = createContext();
+
+// AuthProvider component
 
 export const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
@@ -9,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     getUser();
   }, []);
 
+  // get user from api
   const getUser = async () => {
     const token = localStorage.getItem("token");
     if (token) {
