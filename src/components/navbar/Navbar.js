@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../logo.svg";
 import { useContext } from "react";
 import { FILE_URL } from "../../config";
 import AuthContext from "../../context/AuthProvider";
-import { API_URL } from "../../config";
+import NotificationContext from "../../context/NotificationProvider";
 
 // Navbar component
 
@@ -12,7 +12,6 @@ const Navbar = () => {
   // declare state variables
 
   let navigate = useNavigate();
-  const [notifications, setNotifications] = useState([]);
 
   // Logout function
   const handleLogout = () => {
@@ -21,23 +20,7 @@ const Navbar = () => {
   };
 
   const { profile } = useContext(AuthContext);
-
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
-
-  // get notifications from api
-
-  const fetchNotifications = async () => {
-    let data = await fetch(`${API_URL}/notifications`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-    });
-    data = await data.json();
-    setNotifications(data);
-  };
+  const { notifications } = useContext(NotificationContext);
 
   // filter notifications to get unread notifications
   const unreadNotifications = notifications.filter((n) => !n.read);
@@ -127,7 +110,7 @@ const Navbar = () => {
       </div>
       <div
         className="offcanvas offcanvas-end"
-        tabindex="-1"
+        tabIndex="-1"
         id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel"
       >
@@ -142,10 +125,13 @@ const Navbar = () => {
         </div>
         <div className="offcanvas-body">
           <ul className="list-group">
-            {notifications.map((n) => (
-              <li className="list-group-item d-flex justify-content-between align-items-center">
+            {notifications.map((n, key) => (
+              <li
+                key={key}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
                 {n.post.user.name} has published a new post{" "}
-                <span class="badge bg-primary rounded-pill">
+                <span className="badge bg-primary rounded-pill">
                   {n.read ? "Read" : "Unread"}
                 </span>
               </li>

@@ -37,6 +37,7 @@ const CreatePost = ({ posts, setPosts }) => {
       });
       image = await image.json();
       setImage(image.filename);
+
       //console.log(image);
     } catch (error) {
       console.log({ error });
@@ -48,8 +49,6 @@ const CreatePost = ({ posts, setPosts }) => {
     e.preventDefault();
 
     try {
-      if (!input.length > 5) return window.alert("Insert more text");
-
       const token = localStorage.getItem("token");
       if (token) {
         const post = await fetch(`${API_URL}/posts`, {
@@ -61,12 +60,13 @@ const CreatePost = ({ posts, setPosts }) => {
           body: JSON.stringify({
             text: input,
             image: image,
-            userId: profile.id,
+            // userId: profile.id,
           }),
         });
         const data = await post.json();
         setPosts([data, ...posts]);
-        console.log(data);
+
+        //console.log(data);
         setInput("");
       }
     } catch (error) {
@@ -106,7 +106,7 @@ const CreatePost = ({ posts, setPosts }) => {
 
             <button
               className=" btn btn-post btn-primary"
-              disabled={!input}
+              disabled={input.length < 5}
               type="submit"
               onClick={postAlert}
             >

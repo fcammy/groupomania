@@ -6,12 +6,14 @@ import Comment from "../comment/Comment";
 import Comments from "../comment/Comments";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NotificationContext from "../../context/NotificationProvider";
 
 // POST COMPONENT
 
-const Post = ({ post, deletePost }) => {
+const Post = ({ post, fetchPost, deletePost }) => {
   // get auth context
   const { profile } = useContext(AuthContext);
+  const { notifications, setNotifications } = useContext(NotificationContext);
   // set state for LIKES
 
   const [likes, setLikes] = useState(post.likes);
@@ -84,11 +86,20 @@ const Post = ({ post, deletePost }) => {
       });
       const data = await post.json();
 
+      fetchPost();
+
       console.log(data);
     } catch (error) {
       console.log({ error });
     }
   };
+
+  const unreadNotification = post?.notification?.find(
+    (n) => !n.read && profile.userId === n.userId
+  );
+
+  const postDate = new Date(post.createdAt).getTime();
+
   return (
     <>
       <ToastContainer />
@@ -104,7 +115,7 @@ const Post = ({ post, deletePost }) => {
             }}
           />
         )}
-        {post.userId !== profile.userId && (
+        {post.userId !== profile.userId && unreadNotification && (
           <button onClick={() => markAsRead(post.id)} className="btn btn-info">
             Mark as read
           </button>
@@ -124,7 +135,7 @@ const Post = ({ post, deletePost }) => {
             <h3>{post.user?.name}</h3>
             <p>
               <ReactTimeAgo
-                date={post.createdAt}
+                date={postDate}
                 locale="en-US"
                 timeStyle="twitter"
               />

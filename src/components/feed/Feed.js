@@ -24,7 +24,7 @@ const Feed = () => {
   };
   useEffect(() => {
     fetchPost();
-  });
+  }, []);
 
   // handle delete post
 
@@ -38,7 +38,12 @@ const Feed = () => {
     <div className="feed">
       <CreatePost posts={posts} setPosts={setPosts} />
       {posts.map((post) => (
-        <Post key={post.id} post={post} deletePost={handleDelete} />
+        <Post
+          key={post.id}
+          post={post}
+          fetchPost={fetchPost}
+          deletePost={handleDelete}
+        />
       ))}
     </div>
   );

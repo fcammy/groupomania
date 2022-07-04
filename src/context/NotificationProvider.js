@@ -8,6 +8,10 @@ export const NotificationProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
+    setInterval(getNotifications, 10000);
+  }, []);
+
+  useEffect(() => {
     getNotifications();
   }, []);
 

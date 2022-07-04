@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FILE_URL, API_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/navbar/Navbar";
 
 // profile component
 
@@ -47,6 +48,7 @@ const Profile = () => {
   };
   return (
     <div>
+      <Navbar />
       <div className="wrapper">
         <div className="profile-pic">
           {!profile.image ? (
